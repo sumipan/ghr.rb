@@ -12,6 +12,8 @@ module GHR
         case subcommand
         when "start"
           start version
+        when "publish"
+          publish version
         when "finish"
           finish version
         when "freeze"
@@ -55,6 +57,7 @@ usage: ghr release <subcommand> version
 
 Available subcommands are:
    start   release start
+   publish release publish
    freeze  release freeze (non git-flow operation)
    finish  release finish
 HELP
