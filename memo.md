@@ -17,7 +17,7 @@ Githubを利用しているリポジトリでリリース作業を簡略化す�
 
 Require Github Access Token
 
-ghr release:init xxx
+ghr release:start xxx
   - fork develop -> release/xxx
   - pr develop -> release/xxx
   - update pr

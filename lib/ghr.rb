@@ -1,11 +1,10 @@
 require "ghr/commands/version"
 
 module GHR
-  module Commands
-    # Your code goes here...
-  end
   autoload :Helper, 'ghr/helper'
-  autoload :Commands, 'ghr/commands'
+  autoload :Release, 'ghr/commands/release'
+  autoload :Feature, 'ghr/commands/feature'
+  autoload :Hotfix, 'ghr/commands/hotfix'
 
   class << self
     def execute args
@@ -16,8 +15,11 @@ module GHR
 
       case subcommand
       when "release"
+        Release.execute args
       when "feature"
+        Feature.execute args
       when "hotfix"
+        Hotfix.execute args
       else
         Helper.help
       end
