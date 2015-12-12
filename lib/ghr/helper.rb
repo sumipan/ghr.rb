@@ -12,7 +12,9 @@ module GHR
       def root?
         return false
       end
+
+      def exec(command)
+      end
     end
-    
   end
 end
