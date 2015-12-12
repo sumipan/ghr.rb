@@ -4,14 +4,16 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'github/release/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "github-release"
-  spec.version       = Github::Release::VERSION
-  spec.authors       = ["takashi nagayasu"]
-  spec.email         = ["nagayasu@kayac.com"]
+  spec.name          = "ghr"
+  spec.version       = GHR::Commands::VERSION
+  spec.authors       = ["Takashi Nagayasu"]
+  spec.email         = ["nagayasu@g-onion.org"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = "Github friendly git-flow simple command line wrapper"
+  spec.description   = <<EOF
+Github friendly git-flow simple command line wrapper, no full feature support on git-flow
+EOF
+  spec.homepage      = ""
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
