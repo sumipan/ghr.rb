@@ -8,6 +8,9 @@ module GHR
         version = args.shift
         
         raise "version must be number." unless version.to_i > 0
+
+        branch = GHR::Helper.branch "release", version
+        GHR::Helper.exec("git checkout -f #{branch}", true)
         
         case subcommand
         when "start"
@@ -24,19 +27,15 @@ module GHR
       end
 
       def start version, options = {}
-        branch = GHR::Helper.branch "release", version
         GHR::Helper.exec("git flow release start #{version}", true)
       end
       
       # non git-flow operation
       # Code freeze needed
       def freeze version, options = {}
-        branch = GHR::Helper.branch "release", version
       end
       
       def finish version, options = {}
-        branch = GHR::Helper.branch "release", version
-
         # -n no tag
         # -p push origin
         # -m message
