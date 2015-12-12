@@ -11,6 +11,15 @@ module GHR
       raise "You need to run this command from the toplevel of the working tree." unless Helper.root?
       raise "You need to run `git flow init` before operation." unless Helper.inited?
 
+      subcommand = args.shift
+
+      case subcommand
+      when "release"
+      when "feature"
+      when "hotfix"
+      else
+        Helper.help
+      end
     end
   end
 end
