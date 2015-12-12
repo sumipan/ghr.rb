@@ -14,7 +14,7 @@ module GHR
           start version
         when "finish"
           finish version
-        when freeze
+        when "freeze"
           freeze version
         else
           help
@@ -22,15 +22,19 @@ module GHR
       end
 
       def start version, options = {}
+        branch = GHR::Helper.branch "release", version
         GHR::Helper.exec("git flow release start -F #{version}", true)
       end
       
       # non git-flow operation
       # Code freeze needed
       def freeze version, options = {}
+        branch = GHR::Helper.branch "release", version
       end
       
       def finish version, options = {}
+        branch = GHR::Helper.branch "release", version
+
         # -n no tag
         # -p push origin
         # -m message
