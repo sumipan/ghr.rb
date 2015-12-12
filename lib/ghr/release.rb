@@ -5,14 +5,17 @@ module GHR
     class << self
       def execute args
         subcommand = args.shift
+        version = args.shift
+        
+        raise "version must be number." unless version.to_i > 0
         
         case subcommand
         when "start"
-          puts GHR::Helper.exec("echo start")
+          start version
         when "finish"
-          puts GHR::Helper.exec("echo finish")
+          finish version
         when "publish"
-          puts GHR::Helper.exec("echo publish")
+          publish version
         else
           help
         end
