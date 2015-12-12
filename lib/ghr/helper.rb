@@ -6,14 +6,15 @@ module GHR
     class << self
 
       def inited?
-        return true
+        return !exec('git config gitflow.branch.master').strip.empty?
       end
       
       def root?
-        return false
+        return File.exist?('.git/config')
       end
 
       def exec(command)
+        return `#{command} 2>/dev/null`.chomp
       end
     end
   end
