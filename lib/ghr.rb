@@ -2,9 +2,9 @@ require "ghr/commands/version"
 
 module GHR
   autoload :Helper, 'ghr/helper'
-  autoload :Release, 'ghr/commands/release'
-  autoload :Feature, 'ghr/commands/feature'
-  autoload :Hotfix, 'ghr/commands/hotfix'
+  autoload :Release, 'ghr/release'
+  autoload :Feature, 'ghr/feature'
+  autoload :Hotfix, 'ghr/hotfix'
 
   class << self
     def execute args
