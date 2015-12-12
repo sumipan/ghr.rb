@@ -103,7 +103,7 @@ HELP
         help = <<HELP
 Github access_token required.
 
-`git config ghr.token <your access token>`
+`git config --local ghr.token <your access token>`
 HELP
         puts help
       end
