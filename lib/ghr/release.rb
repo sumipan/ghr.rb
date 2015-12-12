@@ -22,7 +22,7 @@ module GHR
       end
 
       def start version, options = {}
-        GHR::Helper.exec("git flow release start #{version}", true)
+        GHR::Helper.exec("git flow release start -F #{version}", true)
       end
       
       # non git-flow operation
