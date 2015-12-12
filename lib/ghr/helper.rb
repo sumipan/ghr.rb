@@ -30,7 +30,7 @@ module GHR
       end
 
       def token
-        exec "git config --local ghr.token", true
+        exec "git config --local ghr.token"
       end
       
       def root?
