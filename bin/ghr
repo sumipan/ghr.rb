@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+autoload :GHR, 'ghr'
+GHR.execute ARGV
