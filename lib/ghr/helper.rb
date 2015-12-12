@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require "open3"
+
 module GHR
   module Helper
     
@@ -13,8 +15,18 @@ module GHR
         return File.exist?('.git/config')
       end
 
-      def exec(command)
-        return `#{command} 2>/dev/null`.chomp
+      def exec command, raise_error = false
+        if raise_error then
+          stdout, stderr, status = Open3.capture3 command
+          if status.exitstatus != 0 then
+            puts stderr.chomp
+            raise "command exec fail `#{command}`"
+          end
+
+          return stdout.chomp
+        else
+          return `#{command} 2>/dev/null`.chomp
+        end
       end
       
       def help
