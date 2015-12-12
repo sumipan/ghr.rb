@@ -46,7 +46,7 @@ module GHR
       end
       
       def publish version, options = {}
-        GHR::Helper.exec("git flow release publish")
+        GHR::Helper.exec("git flow release publish #{version}")
       end
       
       def help
