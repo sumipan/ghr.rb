@@ -1,4 +1,4 @@
-require "ghr/commands/version"
+require "ghr/version"
 
 module GHR
   autoload :Helper, 'ghr/helper'

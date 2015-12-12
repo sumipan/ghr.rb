@@ -8,8 +8,11 @@ module GHR
         
         case subcommand
         when "start"
+          puts GHR::Helper.exec("echo start")
         when "finish"
+          puts GHR::Helper.exec("echo finish")
         when "publish"
+          puts GHR::Helper.exec("echo publish")
         else
           help
         end
