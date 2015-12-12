@@ -15,27 +15,38 @@ Githubを利用しているリポジトリでリリース作業を簡略化す�
    - リリースに何が入るのか自動的に列挙します
  - マージ後のリリースの自動作成
 
-Require Github Access Token
+#### TODO
 
-ghr release:start xxx
-  - fork develop -> release/xxx
-  - pr develop -> release/xxx
-  - update pr
-ghr release:start xxx
-  - pr merge develop -> release/xxx
-  - pr release/xxx -> master
-  - update pr
-ghr release:finish xxx
-  - pr merge release/xxx -> master
-  - merge master -> develop
-  - release tag create
+- [ ] Require Github Access Token
 
-ghr hotfix:start xxx
-  - fork master -> hotfix/xxx
-  - pr hotfix/xxx -> master
-  - update hotfix/xxx
+ghr release start xxx
+  - [x] fork develop -> release/xxx
+  - [ ] pr develop -> release/xxx
+  - [ ] update pr
+ghr release freeze xxx
+  - [ ] pr mergable?
+  - [ ] pr merge develop -> release/xxx
+  - [ ] pr release/xxx -> master
+  - [ ] update pr
+ghr release finish xxx
+  - [ ] pr merge release/xxx -> master
+  - [ ] merge master -> develop
+  - [ ] release tag create
 
-ghr hotfix:finish xxx
-  - merge pr hotfix/xxx -> master
-  - merge master -> develop
-  - release tag create
+ghr feature start xxx
+  - [ ] fork develop -> feature/xxx
+  - [ ] pr feature/xxx -> develop
+
+ghr feature finish xxx
+  - [ ] pr mergable?
+  - [ ] merge feature/xxx -> develop
+
+ghr hotfix start xxx
+  - [ ] fork master -> hotfix/xxx
+  - [ ] pr hotfix/xxx -> master
+  - [ ] update hotfix/xxx
+
+ghr hotfix finish xxx
+  - [ ] merge pr hotfix/xxx -> master
+  - [ ] merge master -> develop
+  - [ ] release tag create
