@@ -15,6 +15,24 @@ module GHR
         return !token.empty?
       end
 
+      def github_url_detect
+        url = exec "git config remote.#{remotes.first}.url", true
+        raise "no remote config found." unless url
+        
+        match = url.match(/github\.com[:\/](.+)\/(.+)\.git$/)
+        raise "no github url match." unless match
+        
+        match
+      end
+
+      def user
+        github_url_detect[1]
+      end
+      
+      def repo
+        github_url_detect[2]
+      end
+
       def token
         exec "git config ghr.token --local", true
       end
