@@ -5,6 +5,7 @@ module GHR
     # Your code goes here...
   end
   autoload :Helper, 'ghr/helper'
+  autoload :Commands, 'ghr/commands'
 
   class << self
     def execute args
