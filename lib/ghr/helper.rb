@@ -15,6 +15,21 @@ module GHR
         return File.exist?('.git/config')
       end
 
+      def branch type, name
+        case type
+        when "release"
+          prefix = exec "git config gitflow.prefix.release"
+        when "feature"
+          prefix = exec "git config gitflow.prefix.feature"
+        when "hotfix"
+          prefix = exec "git config gitflow.prefix.hotfix"
+        end
+
+        raise "no gitflow config found." if prefix.empty?
+        
+        prefix + name
+      end
+
       def exec command, raise_error = false
         if raise_error then
           stdout, stderr, status = Open3.capture3 command
