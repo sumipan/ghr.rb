@@ -10,19 +10,19 @@ module GHR
         raise "version must be number." unless version.to_i > 0
 
         branch = GHR::Helper.branch "release", version
-        GHR::Helper.exec("git checkout -f #{branch}", true)
         
         case subcommand
         when "start"
           start version
         when "publish"
+          GHR::Helper.exec("git checkout -f #{branch}", true)
           publish version
-        when "finish"
-          finish version
         when "freeze"
+          GHR::Helper.exec("git checkout -f #{branch}", true)
           freeze version
-        when "publish"
-          publish version
+        when "finish"
+          GHR::Helper.exec("git checkout -f #{branch}", true)
+          finish version
         else
           help
         end
