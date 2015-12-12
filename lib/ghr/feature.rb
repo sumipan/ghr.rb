@@ -7,7 +7,7 @@ module GHR
         subcommand = args.shift
         name = args.shift
         
-        raise "name must specified." unless name.empty?
+        raise "name must specified." if name.empty?
         
         case subcommand
         when "start"
