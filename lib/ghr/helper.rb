@@ -14,6 +14,20 @@ module GHR
       def root?
         return File.exist?('.git/config')
       end
+      
+      def master
+        branch = exec "git config gitflow.branch.master"
+        raise "no gitflow config found." if branch.empty?
+        
+        branch
+      end
+      
+      def develop
+        branch = exec "git config gitflow.branch.develop"
+        raise "no gitflow config found." if branch.empty?
+        
+        branch
+      end
 
       def branch type, name
         case type
