@@ -26,8 +26,7 @@ module GHR
       
       def finish name, options = {}
         branch = GHR::Helper.branch "feature", name
-
-        GHR::Helper.exec("git flow feature finish -F -m 'feature:finish' #{name}")
+        GHR::Helper.exec("git flow feature finish -F #{name}", true)
       end
       
       def help
