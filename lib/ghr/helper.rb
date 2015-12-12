@@ -8,7 +8,15 @@ module GHR
     class << self
 
       def inited?
-        return !exec('git config gitflow.branch.master').strip.empty?
+        return !exec('git config gitflow.branch.master').strip.empty?, true
+      end
+      
+      def authorized?
+        return !token.empty?
+      end
+
+      def token
+        exec "git config ghr.token --local", true
       end
       
       def root?

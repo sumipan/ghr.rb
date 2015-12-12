@@ -29,13 +29,13 @@ module GHR
     end
     
     def prepare
-      Helper.exec "git clean -df"
-      Helper.exec "git reset --hard"
-      Helper.exec "git fetch #{Helper.remotes.first} --prune"
-      Helper.exec "git checkout -f #{Helper.master}"
-      Helper.exec "git pull origin #{Helper.master}"
-      Helper.exec "git checkout -f #{Helper.develop}"
-      Helper.exec "git pull origin #{Helper.develop}"
+      Helper.exec "git clean -df", true
+      Helper.exec "git reset --hard", true
+      Helper.exec "git fetch #{Helper.remotes.first} --prune", true
+      Helper.exec "git checkout -f #{Helper.master}", true
+      Helper.exec "git pull origin #{Helper.master}", true
+      Helper.exec "git checkout -f #{Helper.develop}", true
+      Helper.exec "git pull origin #{Helper.develop}", true
     end
   end
 end
