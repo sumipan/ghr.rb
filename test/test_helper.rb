@@ -1,4 +1,4 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'github/release'
+require 'ghr/commands'
 
 require 'minitest/autorun'
