@@ -39,6 +39,10 @@ module GHR
         # -p push origin
         # -m message
         GHR::Helper.exec("git flow release finish -np -m 'release:finish' #{version}")
+        
+        # GHR::Helper.exec("git checkout -f #{GHR::Helper.develop}")
+        # GHR::Helper.exec("git merge #{GHR::Helper.master}")
+        # GHR::Helper.exec("git push #{GHR::Helper.remotes.first} #{GHR::Helper.develop}:#{GHR::Helper.develop}")
       end
       
       def help

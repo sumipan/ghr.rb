@@ -15,6 +15,11 @@ module GHR
         return File.exist?('.git/config')
       end
       
+      def remotes
+        remotes = exec "git remote"
+        remotes.each_line.map{|l| l.strip }
+      end
+      
       def master
         branch = exec "git config gitflow.branch.master"
         raise "no gitflow config found." if branch.empty?
