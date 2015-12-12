@@ -23,7 +23,7 @@ module GHR
 
       def start version, options = {}
         branch = GHR::Helper.branch "release", version
-        GHR::Helper.exec("git flow release start -F #{version}", true)
+        GHR::Helper.exec("git flow release start #{version}", true)
       end
       
       # non git-flow operation
@@ -38,7 +38,7 @@ module GHR
         # -n no tag
         # -p push origin
         # -m message
-        GHR::Helper.exec("git flow release finish -Fnp -m 'release:finish' #{version}")
+        GHR::Helper.exec("git flow release finish -np -m 'release:finish' #{version}")
       end
       
       def help

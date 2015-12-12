@@ -21,12 +21,12 @@ module GHR
 
       def start name, options = {}
         branch = GHR::Helper.branch "feature", name
-        GHR::Helper.exec("git flow feature start -F #{name}", true)
+        GHR::Helper.exec("git flow feature start #{name}", true)
       end
       
       def finish name, options = {}
         branch = GHR::Helper.branch "feature", name
-        GHR::Helper.exec("git flow feature finish -F #{name}", true)
+        GHR::Helper.exec("git flow feature finish #{name}", true)
       end
       
       def help
