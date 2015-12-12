@@ -20,7 +20,7 @@ module GHR
         when "freeze"
           freeze version
         when "publish"
-          freeze publish
+          publish version
         else
           help
         end
