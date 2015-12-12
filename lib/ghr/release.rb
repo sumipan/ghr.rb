@@ -16,6 +16,8 @@ module GHR
           finish version
         when "freeze"
           freeze version
+        when "publish"
+          freeze publish
         else
           help
         end
@@ -38,7 +40,7 @@ module GHR
         # -n no tag
         # -p push origin
         # -m message
-        GHR::Helper.exec("git flow release finish -np -m 'release:finish' #{version}")
+        GHR::Helper.exec("git flow release finish -np -m 'release:finish' #{version}", true)
 
         # GHR::Helper.exec("git checkout -f #{GHR::Helper.develop}")
         # GHR::Helper.exec("git merge #{GHR::Helper.master}")
@@ -46,7 +48,7 @@ module GHR
       end
       
       def publish version, options = {}
-        GHR::Helper.exec("git flow release publish #{version}")
+        GHR::Helper.exec("git flow release publish #{version}", true)
       end
       
       def help
@@ -55,6 +57,7 @@ usage: ghr release <subcommand> version
 
 Available subcommands are:
    start   release start
+   publish release publish
    freeze  release freeze (non git-flow operation)
    finish  release finish
 HELP
