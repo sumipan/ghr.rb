@@ -34,12 +34,12 @@ ghr release finish xxx
   - [ ] release tag create
 
 ghr feature start xxx
-  - [ ] fork develop -> feature/xxx
+  - [x] fork develop -> feature/xxx
   - [ ] pr feature/xxx -> develop
 
 ghr feature finish xxx
   - [ ] pr mergable?
-  - [ ] merge feature/xxx -> develop
+  - [x] merge feature/xxx -> develop
 
 ghr hotfix start xxx
   - [ ] fork master -> hotfix/xxx
