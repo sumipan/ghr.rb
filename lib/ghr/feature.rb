@@ -14,7 +14,9 @@ module GHR
         case subcommand
         when "start"
           start name
+          GHR::Helper.empty_commit "Start feature #{name}"
           publish name
+          sleep 5 # wait sync github
           GHR::Github::PullRequests.create GHR::Helper.develop, branch, "[FEATURE] #{name}", ""
         when "finish"
           if !GHR::Github::PullRequests.mergeable? GHR::Helper.develop, branch then
