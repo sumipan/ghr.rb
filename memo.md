@@ -35,10 +35,10 @@ ghr release finish xxx
 
 ghr feature start xxx
   - [x] fork develop -> feature/xxx
-  - [ ] pr feature/xxx -> develop
+  - [x] pr feature/xxx -> develop
 
 ghr feature finish xxx
-  - [ ] pr mergable?
+  - [x] pr mergable?
   - [x] merge feature/xxx -> develop
 
 ghr hotfix start xxx
