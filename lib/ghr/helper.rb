@@ -71,6 +71,10 @@ module GHR
         prefix + name
       end
 
+      def empty_commit message
+        exec "git commit --allow-empty -m '#{message}'", true
+      end
+
       def exec command, raise_error = false
         if raise_error then
           stdout, stderr, status = Open3.capture3 command
