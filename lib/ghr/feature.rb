@@ -25,6 +25,8 @@ module GHR
           end
           GHR::Helper.exec("git checkout -f #{branch}", true)
           finish name
+          GHR::Helper.exec("git push #{GHR::Helper.remotes.first} #{GHR::Helper.develop}:#{GHR::Helper.develop}")
+          GHR::Helper.exec("git push #{GHR::Helper.remotes.first} :#{branch}")
         when "publish"
           GHR::Helper.exec("git checkout -f #{branch}", true)
           publish name
