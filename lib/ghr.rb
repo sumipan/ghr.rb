@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require "ghr/version"
 require "github_api"
 
@@ -6,6 +8,7 @@ module GHR
   autoload :Release, 'ghr/release'
   autoload :Feature, 'ghr/feature'
   autoload :Hotfix, 'ghr/hotfix'
+  autoload :Github, 'ghr/github'
 
   class << self
     def execute args
@@ -28,7 +31,7 @@ module GHR
         Helper.help
       end
     end
-    
+
     def client
       unless @github then
         if !Helper.token || Helper.token.empty?
@@ -36,17 +39,17 @@ module GHR
           exit 1
         end
 
-        @github = Github::Client.new
+        @github = ::Github::Client.new
         @github.setup({
           :user => Helper.user,
           :repo => Helper.repo,
           :oauth_token => Helper.token,
         })
       end
-      
+
       @github
     end
-    
+
     def prepare
       Helper.exec "git clean -df", true
       Helper.exec "git reset --hard", true
