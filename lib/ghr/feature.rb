@@ -31,6 +31,10 @@ module GHR
         GHR::Helper.exec("git flow feature start #{name}", true)
       end
 
+      def publish name, options = {}
+        GHR::Helper.exec("git flow feature publish #{name}", true)
+      end
+
       def finish name, options = {}
         branch = GHR::Helper.branch "feature", name
         GHR::Helper.exec("git flow feature finish #{name}", true)
