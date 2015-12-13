@@ -15,9 +15,9 @@ module GHR
         when "start"
           start name
           publish name
-          GHR::Github::PullRequest.create GHR::Helper.develop, branch, "[FEATURE] #{name}", ""
+          GHR::Github::PullRequests.create GHR::Helper.develop, branch, "[FEATURE] #{name}", ""
         when "finish"
-          if !GHR::Github::PullRequest.mergeable? GHR::Helper.develop, branch then
+          if !GHR::Github::PullRequests.mergeable? GHR::Helper.develop, branch then
             GHR::Helper.help_cant_merge
             exit 1
           end
