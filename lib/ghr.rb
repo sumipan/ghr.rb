@@ -1,4 +1,5 @@
 require "ghr/version"
+require "github_api"
 
 module GHR
   autoload :Helper, 'ghr/helper'
@@ -26,6 +27,24 @@ module GHR
       else
         Helper.help
       end
+    end
+    
+    def client
+      unless @github then
+        if !Helper.token || Helper.token.empty?
+          Helper.help_authorize
+          exit 1
+        end
+
+        @github = Github::Client.new
+        @github.setup({
+          :user => Helper.user,
+          :repo => Helper.repo,
+          :oauth_token => Helper.token,
+        })
+      end
+      
+      @github
     end
     
     def prepare

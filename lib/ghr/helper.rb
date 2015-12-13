@@ -11,12 +11,26 @@ module GHR
         return !exec('git config gitflow.branch.master').strip.empty?, true
       end
       
-      def authorized?
-        return !token.empty?
+      def github_url_detect
+        url = exec "git config remote.#{remotes.first}.url", true
+        raise "no remote config found." unless url
+        
+        match = url.match(/github\.com[:\/](.+)\/(.+)\.git$/)
+        raise "no github url match." unless match
+        
+        match
+      end
+      
+      def user
+        github_url_detect[1]
+      end
+      
+      def repo
+        github_url_detect[2]
       end
 
       def token
-        exec "git config ghr.token --local", true
+        exec "git config --local ghr.token"
       end
       
       def root?
@@ -81,6 +95,15 @@ Available subcommands are:
    hotfix    Manage your hotfix branches.
 
 Try 'ghr <subcommand> help' for details.
+HELP
+        puts help
+      end
+      
+      def help_authorize
+        help = <<HELP
+Github access_token required.
+
+`git config --local ghr.token <your access token>`
 HELP
         puts help
       end
