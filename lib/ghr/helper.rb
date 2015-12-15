@@ -4,33 +4,55 @@ require "open3"
 
 module GHR
   module Helper
-    
+
     class << self
 
       def inited?
-        return !exec('git config gitflow.branch.master').strip.empty?
+        return !exec('git config gitflow.branch.master').strip.empty?, true
       end
-      
+
+      def github_url_detect
+        url = exec "git config remote.#{remotes.first}.url", true
+        raise "no remote config found." unless url
+
+        match = url.match(/github\.com[:\/](.+)\/(.+)\.git$/)
+        raise "no github url match." unless match
+
+        match
+      end
+
+      def user
+        github_url_detect[1]
+      end
+
+      def repo
+        github_url_detect[2]
+      end
+
+      def token
+        exec "git config --local ghr.token"
+      end
+
       def root?
         return File.exist?('.git/config')
       end
-      
+
       def remotes
         remotes = exec "git remote"
         remotes.each_line.map{|l| l.strip }
       end
-      
+
       def master
         branch = exec "git config gitflow.branch.master"
         raise "no gitflow config found." if branch.empty?
-        
+
         branch
       end
-      
+
       def develop
         branch = exec "git config gitflow.branch.develop"
         raise "no gitflow config found." if branch.empty?
-        
+
         branch
       end
 
@@ -45,8 +67,12 @@ module GHR
         end
 
         raise "no gitflow config found." if prefix.empty?
-        
+
         prefix + name
+      end
+
+      def empty_commit message
+        exec "git commit --allow-empty -m '#{message}'", true
       end
 
       def exec command, raise_error = false
@@ -62,7 +88,7 @@ module GHR
           return `#{command} 2>/dev/null`.chomp
         end
       end
-      
+
       def help
         help = <<HELP
 usage: ghr <subcommand>
@@ -73,6 +99,22 @@ Available subcommands are:
    hotfix    Manage your hotfix branches.
 
 Try 'ghr <subcommand> help' for details.
+HELP
+        puts help
+      end
+
+      def help_authorize
+        help = <<HELP
+Github access_token required.
+
+`git config --local ghr.token <your access token>`
+HELP
+        puts help
+      end
+
+      def help_cant_merge
+        help = <<HELP
+pull_request is not mergable. check your branch status.
 HELP
         puts help
       end

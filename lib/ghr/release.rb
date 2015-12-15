@@ -6,21 +6,34 @@ module GHR
       def execute args
         subcommand = args.shift
         version = args.shift
-        
+
         raise "version must be number." unless version.to_i > 0
 
         branch = GHR::Helper.branch "release", version
-        GHR::Helper.exec("git checkout -f #{branch}", true)
-        
+
         case subcommand
         when "start"
           start version
-        when "finish"
-          finish version
-        when "freeze"
-          freeze version
-        when "publish"
+          GHR::Helper.empty_commit "Start release #{version}"
           publish version
+          sleep 5 # wait sync github
+          GHR::Github::PullRequests.create branch, GHR::Helper.develop, "[RELEASE] Develop #{version}", ""
+        when "freeze"
+          GHR::Helper.exec("git checkout -f #{branch}", true)
+          freeze version
+        when "finish"
+          if !GHR::Github::PullRequests.mergeable? GHR::Helper.master, branch then
+            GHR::Helper.help_cant_merge
+            exit 1
+          end
+          GHR::Helper.exec("git checkout -f #{branch}", true)
+          finish version
+          GHR::Helper.exec("git push #{GHR::Helper.remotes.first} #{GHR::Helper.master}:#{GHR::Helper.master}")
+          GHR::Helper.exec("git push #{GHR::Helper.remotes.first} :#{branch}")
+        when "publish"
+          GHR::Helper.exec("git checkout -f #{branch}", true)
+          publish version
+          GHR::Helper.exec("git push #{Helper.remotes.first} #{branch}:#{branch}", true)
         else
           help
         end
@@ -29,12 +42,12 @@ module GHR
       def start version, options = {}
         GHR::Helper.exec("git flow release start #{version}", true)
       end
-      
+
       # non git-flow operation
       # Code freeze needed
       def freeze version, options = {}
       end
-      
+
       def finish version, options = {}
         # -n no tag
         # -p push origin
@@ -45,11 +58,11 @@ module GHR
         # GHR::Helper.exec("git merge #{GHR::Helper.master}")
         # GHR::Helper.exec("git push #{GHR::Helper.remotes.first} #{GHR::Helper.develop}:#{GHR::Helper.develop}")
       end
-      
+
       def publish version, options = {}
         GHR::Helper.exec("git flow release publish #{version}", true)
       end
-      
+
       def help
         help = <<HELP
 usage: ghr release <subcommand> version
