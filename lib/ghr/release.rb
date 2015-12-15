@@ -14,17 +14,26 @@ module GHR
         case subcommand
         when "start"
           start version
+          GHR::Helper.empty_commit "Start release #{version}"
           publish version
-        when "publish"
-          GHR::Helper.exec("git checkout -f #{branch}", true)
-          publish version
-          GHR::Helper.exec("git push #{Helper.remotes.first} #{branch}:#{branch}", true)
+          sleep 5 # wait sync github
+          GHR::Github::PullRequests.create branch, GHR::Helper.develop, "[RELEASE] Develop #{version}", ""
         when "freeze"
           GHR::Helper.exec("git checkout -f #{branch}", true)
           freeze version
         when "finish"
+          if !GHR::Github::PullRequests.mergeable? GHR::Helper.master, branch then
+            GHR::Helper.help_cant_merge
+            exit 1
+          end
           GHR::Helper.exec("git checkout -f #{branch}", true)
           finish version
+          GHR::Helper.exec("git push #{GHR::Helper.remotes.first} #{GHR::Helper.master}:#{GHR::Helper.master}")
+          GHR::Helper.exec("git push #{GHR::Helper.remotes.first} :#{branch}")
+        when "publish"
+          GHR::Helper.exec("git checkout -f #{branch}", true)
+          publish version
+          GHR::Helper.exec("git push #{Helper.remotes.first} #{branch}:#{branch}", true)
         else
           help
         end
