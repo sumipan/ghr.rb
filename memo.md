@@ -17,19 +17,21 @@ Githubを利用しているリポジトリでリリース作業を簡略化す�
 
 #### TODO
 
-- [ ] Require Github Access Token
+- [x] Require Github Access Token
+- [ ] update pr
+- [ ] release tag create
+- [ ] hook script
 
 ghr release start xxx
   - [x] fork develop -> release/xxx
-  - [ ] pr develop -> release/xxx
-  - [ ] update pr
+  - [x] pr develop -> release/xxx
 ghr release freeze xxx
   - [ ] pr mergable?
   - [ ] pr merge develop -> release/xxx
   - [ ] pr release/xxx -> master
-  - [ ] update pr
 ghr release finish xxx
-  - [ ] pr merge release/xxx -> master
+  - [x] pr mergable?
+  - [x] pr merge release/xxx -> master
   - [ ] merge master -> develop
   - [ ] release tag create
 
@@ -44,7 +46,6 @@ ghr feature finish xxx
 ghr hotfix start xxx
   - [ ] fork master -> hotfix/xxx
   - [ ] pr hotfix/xxx -> master
-  - [ ] update hotfix/xxx
 
 ghr hotfix finish xxx
   - [ ] merge pr hotfix/xxx -> master
